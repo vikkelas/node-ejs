@@ -1,12 +1,17 @@
 const express = require('express');
 const err404 = require('./src/middleware/error-404')
 const app = express();
-const indexRouter = require('./src/routes/index')
 const path = require("path");
+const formidableMiddleware = require('express-formidable');
+
+const indexRouter = require('./src/routes/index')
+
 
 app.use(express.urlencoded());
+app.use(formidableMiddleware());
 app.set('views', path.join(__dirname, './src/views'));
 app.set("view engine", "ejs");
+app.use(express.static('public'))
 
 app.use('/', indexRouter)
 
